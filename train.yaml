@@ -1,0 +1,36 @@
+experiment: TextClassification
+mode: train
+
+model: distilgpt2               
+tokenizer: distilgpt2
+max_length: 128              
+
+trainfpath: data/bible_certain/train.tsv
+valfpath:   data/bible_certain/val.tsv
+
+
+id2label:
+  0: Paul
+  1: Peter
+  2: John
+  3: James
+  4: Jude
+  5: Luke
+  6: Matthew
+  7: Mark
+
+epochs: 3
+batch_size: 16
+learning_rate: 5.0e-5
+weight_decay: 0.01
+warmup_ratio: 0.06
+gradient_accumulation_steps: 1
+seed: 42
+
+output_dir: outputs/tc_bible_author_cls
+save_strategy: epoch
+eval_strategy: epoch
+log_every_steps: 50
+
+fp16: true
+shuffle: true

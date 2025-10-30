@@ -1,0 +1,23 @@
+experiment: TextClassification
+mode: evaluate
+
+model: outputs/tc_bible_author_cls/best
+
+datafpath: data/bible_uncertain/all_uncertain.tsv
+
+predfpath: outputs/predictions/uncertain_book_preds.tsv
+
+giveAllLabels: true
+
+id2label:
+  0: Paul
+  1: Peter
+  2: John
+  3: James
+  4: Jude
+  5: Luke
+  6: Matthew
+  7: Mark
+
+max_length: 128
+batch_size: 64
