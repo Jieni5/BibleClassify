@@ -15,3 +15,11 @@ the sequence of steps:
 8. compare: we will then compare the predictions our model output to the biblical scholar's general ideas using papers we collected before.
 
 9. reflect: we will then reflect based on the output of our comparison. 
+
+
+## NLPScholar output
+- Running 'analysis' mode, the output will show different categories (different known authors), and the probability of the text being classified into this category.
+
+- We will make rankings out of these probabilities, and see if there is a clear preference shown to one of the authors.
+
+- A table could be created with the rows being different authors for known chapters, and columns being titles of unknown chapters. The boxes would be the probabilities of the author writing this chapter.
