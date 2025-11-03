@@ -1,4 +1,9 @@
 # BibleClassify
+Take probability of text over sentences >60% then assign to the author model classified it to other wise assign to unknown author
+Why we chose 60%, prove methodology to audience, high probability of unknown author
+Average of the results for each sentence is the result for the book overall
+Contribution, motivation, how does this add to the literature?
+
 We are using text classification model to determine the authors of the books in the Bible
 
 the sequence of steps:
