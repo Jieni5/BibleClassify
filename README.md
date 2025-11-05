@@ -1,7 +1,7 @@
 # BibleClassify
 Take probability of text over sentences >60% then assign to the author model classified it to other wise assign to unknown author
 Why we chose 60%(some paper will be needed to prove why this number is significant), prove methodology to audience, high probability of unknown author(either our model doesn't work or there's a significant number of unknown authors)
-Average of the results for each sentence is the result for the book overall(some paper/article proving why using the average is accurate enough to use as the overall answere)
+Average of the results for each sentence is the result for the book overall(some paper/article proving why using the average is accurate enough to use as the overall answer), assign a value to the author and a value to the unknown label and get the average to determine which one sentences were assigned to the most, OR would be easier get average of book based on sentence probabilities and if that average >60% assign book to author and if not assign book to unknown label
 Contribution, motivation, how does this add to the literature?
 The literature has yet to look at the text beyond using syntactic parsing and other methods similar to n-gram models. This experiment could show that there's significant evidence for theories that already exist that certain books are not written by a known author/the author they're attributed to. This experiment is geared towards the Christian community and therefore will need to be strong in its methodology and results.
 
