@@ -1,30 +1,33 @@
 # BibleClassify
 Take probability of text over sentences >60% then assign to the author model classified it to other wise assign to unknown author
-Why we chose 60%, prove methodology to audience, high probability of unknown author
-Average of the results for each sentence is the result for the book overall
+Why we chose 60%(some paper will be needed to prove why this number is significant), prove methodology to audience, high probability of unknown author(either our model doesn't work or there's a significant number of unknown authors)
+Average of the results for each sentence is the result for the book overall(some paper/article proving why using the average is accurate enough to use as the overall answere)
 Contribution, motivation, how does this add to the literature?
+The literature has yet to look at the text beyond using syntactic parsing and other methods similar to n-gram models. This experiment could show that there's significant evidence for theories that already exist that certain books are not written by a known author/the author they're attributed to. This experiment is geared towards the Christian community and therefore will need to be strong in its methodology and results.
 
-We are using text classification model to determine the authors of the books in the Bible
+We are using bayesian classification model to determine the authors of the books in the Bible
 
 the sequence of steps:
-1. compiling the dataset: we will need to find a format of the whole New Testament that can be read through and transformed into a tsv file with two columns: sentences and authors.
+1. compiling the dataset: We have a format of the whole New Testament that can be read through and transformed into a tsv file with two columns: sentences and authors.
 
-3. splitting the dataset: we will need to split the tsv file we had into two main parts: training and testing. for the training, we will also need to split that into three parts: training, validation, and verification. (maybe 80%, 10%, 10%)
+3. splitting the dataset: We will need to split the tsv file we had into two main parts: training and testing. for the training, we will also need to split that into three parts: training, validation, and verification. (maybe 80%, 10%, 10%)
 
-5. Trian/Finetune: we will then finetune based on our chose casual model using our train & val dataset.
+5. Trian/Finetune: We will then finetune based on our chosen text classification model using our train & validate datasets.
 
-6. verify: we will verify if our model works using the verification dataset.
+6. verify: We will verify if our model works using the verification dataset.
 
-7. test: we will then evaluate the uncertain books using our finetuned model. we will get predictions from this test for each sentences.
+7. test: We will then evaluate the uncertain books using our finetuned model. We will get predictions from this test for each sentence.
 
-8. compare: we will then compare the predictions our model output to the biblical scholar's general ideas using papers we collected before.
+8. calculate: We will then take the average result of the sentences for each book and use this as the result for the book.
 
-9. reflect: we will then reflect based on the output of our comparison. 
+9. compare: We will then compare the predictions our model outputs to the biblical scholar's general ideas using papers we collected before. We're looking to see whether and what the differences are between our results and biblical scholar's theories.
+
+10. reflect: we will then reflect based on the output of our comparison. 
 
 
 ## NLPScholar output
 - Running 'analysis' mode, the output will show different categories (different known authors), and the probability of the text being classified into this category.
 
-- We will make rankings out of these probabilities, and see if there is a clear preference shown to one of the authors.
+- We will have authors assigned to texts only if the probability is over 60% and otherwise will assign an unknown class label to the text in question.
 
 - A table could be created with the rows being different authors for known chapters, and columns being titles of unknown chapters. The boxes would be the probabilities of the author writing this chapter.
