@@ -49,9 +49,8 @@ def split_verse_into_sentences(verse_text):
     sentence_list = list(filter(None, re.split(r'(?<=[.!?])\s+', verse_text)))
     return sentence_list
 
-def make_data_lists(text_list, author_dict) -> list:
-    author_lst = []
-    sent_lst = []
+def make_data_dict(text_list, author_dict) -> dict:
+    author_sentences = {author: [] for author in author_dict}
     verse_pattern = re.compile(r'^\s*([1-3]?\s?[A-Za-z]+)\s+\d+:\d+\s*', re.IGNORECASE)
     book = None
 
@@ -74,50 +73,56 @@ def make_data_lists(text_list, author_dict) -> list:
                 continue
             for author, books in author_dict.items():
                 if book in books:
-                    author_lst.append(author)
-                
-                    sent_lst.append(sentence)
+                    author_sentences[author].append(sentence)
                 
                     break
-    return author_lst, sent_lst
 
-def make_data_csv(author_lst, sent_lst):
-    data = {'Author': author_lst, 'Sentence': sent_lst}
-    df = pd.DataFrame(data)
-    df.to_csv('full_dataset.tsv', sep='\t', index=False)
+    return author_sentences
 
-def check_sentence_number(sent_lst, text_list):
-    verse_pattern = re.compile(r'^[1-3]?\s?[A-Za-z]+\s+\d+:\d+\s*')
+def split_data(author_sentences) -> dict:
+    author_splits = {}
+    for author, sentences in author_sentences.items():
+        n = len(sentences)
+        split_point_1 = int(n * 0.8)
+        split_point_2 = int(n * 0.9)
+        author_splits[author] = {"train": sentences[:split_point_1], "validate": sentences[split_point_1:split_point_2], "verify": sentences[split_point_2:]}
+    return author_splits
 
-    unmatched_originals = 0
-    for sentence in text_list:
-        cleaned = verse_pattern.sub('', sentence, count=1).strip()
-        if cleaned not in sent_lst:
-            unmatched_originals += 1
-            print("Not found in sent_lst:", sentence)
+def make_data_csv(author_splits):
+    train_data = {'Author': [], 'Sentence': []}
+    validate_data = {'Author': [], 'Sentence': []}
+    verify_data = {'Author': [], 'Sentence': []}
+    for author, splits in author_splits.items():
+        for sentence in splits["train"]:
+            train_data["Author"].append(author)
+            train_data["Sentence"].append(sentence)
 
-    print(f"{unmatched_originals} lines from text_list not found in sent_lst.")
+        for sentence in splits["validate"]:
+            validate_data["Author"].append(author)
+            validate_data["Sentence"].append(sentence)
 
-def find_unmatched_lines(sent_lst, text_list):
-    unmatched = []
-    for verse in text_list:
-        verse_text = re.sub(r'^[1-3]?\s?[A-Za-z]+\s+\d+:\d+\s*', '', verse).strip()
-        # Split verse into sentences
-        sentences = split_verse_into_sentences(verse_text)
-        for s in sentences:
-            if s not in sent_lst:
-                unmatched.append(s)
-    return unmatched
+        for sentence in splits["verify"]:
+            verify_data["Author"].append(author)
+            verify_data["Sentence"].append(sentence)
+
+    df1 = pd.DataFrame(train_data)
+    df1.to_csv('train_dataset.tsv', sep='\t', index=False)
+    df2 = pd.DataFrame(validate_data)
+    df2.to_csv('validate_dataset.tsv', sep='\t', index=False)
+    df3 = pd.DataFrame(verify_data)
+    df3.to_csv('verify_dataset.tsv', sep='\t', index=False)
+
 
 def main():
     txt_file = "kjv_new_testament.txt"
     author_dict = {"Matthew": ["Matthew"], "Mark": ["Mark"], "Luke": ["Luke", "Acts"], "John": ["John", "1John", "2John", "3John", "Revelation"], "Paul": ["Romans", "1Corinthians", "2Corinthians", "Galatians", "Ephesians"], "Peter": ["1Peter", "2Peter"], "James": ["James"], "Jude": ["Jude"]}
     text_lst = file_read_in(txt_file)
     
-    verse_pattern = re.compile(r'^\s*([1-3]?\s?[A-Za-z]+)\s+\d+:\d+\s*', re.IGNORECASE)
-    author_lst, sent_lst = make_data_lists(text_lst, author_dict)
+    author_sentences = make_data_dict(text_lst, author_dict)
+
+    author_splits = split_data(author_sentences)
     
-    make_data_csv(author_lst, sent_lst)
+    make_data_csv(author_splits)
 
 if __name__ == '__main__':
     main()
