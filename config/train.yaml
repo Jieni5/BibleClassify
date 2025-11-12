@@ -4,9 +4,9 @@ mode: train
 model: distilgpt2               
 max_length: 128              
 
-trainfpath: data/bible_certain/train.tsv
-valfpath:   data/bible_certain/val.tsv
-
+trainfpath:   ../data/train.tsv
+validfpath:   ../data//val.tsv
+modelfpath: ../trainedModel
 
 id2label:
   0: Paul
@@ -33,3 +33,7 @@ log_every_steps: 50
 
 fp16: true
 shuffle: true
+
+loadPretrained: true
+
+numLabels: 8
