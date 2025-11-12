@@ -3,7 +3,7 @@ mode: evaluate
 
 model: ../trainedModel
 
-datafpath: ../data/train_dataset.tsv
+datafpath: ../data/verify_dataset.tsv
 
 predfpath: ../data/predictions.tsv
 
