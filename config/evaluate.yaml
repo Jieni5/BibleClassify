@@ -4,7 +4,7 @@ mode:
 
 model: ../trainedModel
 
-datafpath: ../data/verify_dataset.tsv
+datafpath: ../data/evaluate_dataset.tsv
 
 predfpath: ../data/predictions.tsv
 
