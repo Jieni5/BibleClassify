@@ -1,5 +1,6 @@
 exp: TextClassification
-mode: evaluate
+mode: 
+    - evaluate
 
 model: ../trainedModel
 
