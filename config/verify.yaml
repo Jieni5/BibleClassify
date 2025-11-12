@@ -3,7 +3,7 @@ mode:
 - evaluate
 - analyse
 
-model: outputs/tc_bible_author_cls/best
+models: outputs/tc_bible_author_cls/best
 
 datafpath: data/bible_certain/verify.tsv
 
