@@ -1,5 +1,7 @@
-experiment: TextClassification
-mode: evaluate
+exp: TextClassification
+mode: 
+- evaluate
+- analyse
 
 model: outputs/tc_bible_author_cls/best
 
