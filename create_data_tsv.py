@@ -91,22 +91,31 @@ def split_data(certain_author_sentences) -> dict:
     return certain_author_splits
 
 def make_data_csv(certain_author_splits, uncertain_author_sentences):
-    train_data = {'Author': [], 'Sentence': []}
-    validate_data = {'Author': [], 'Sentence': []}
-    verify_data = {'Author': [], 'Sentence': []}
+    train_data = {'label': [], 'text': [], 'textid': []}
+    validate_data = {'label': [], 'text': [], 'textid': []}
+    verify_data = {'label': [], 'text': [], 'textid': []}
     for author, splits in certain_author_splits.items():
+        train_id = 0
+        valid_id = 0
+        verify_id = 0
         for sentence in splits["train"]:
-            train_data["Author"].append(author)
-            train_data["Sentence"].append(sentence)
+            train_data["label"].append(author)
+            train_data["text"].append(sentence)
+            train_data["textid"].append(train_id)
+            train_id += 1
 
         for sentence in splits["validate"]:
-            validate_data["Author"].append(author)
-            validate_data["Sentence"].append(sentence)
+            validate_data["label"].append(author)
+            validate_data["text"].append(sentence)
+            validate_data["textid"].append(valid_id)
+            valid_id += 1
 
     for author, sentences in uncertain_author_sentences.items():
         for sentence in sentences:
-            verify_data["Author"].append(author)
-            verify_data["Sentence"].append(sentence)
+            verify_data["label"].append(author)
+            verify_data["text"].append(sentence)
+            verify_data["textid"].append(verify_id)
+            verify_id += 1
 
     df1 = pd.DataFrame(train_data)
     df1.to_csv('train_dataset.tsv', sep='\t', index=False)
