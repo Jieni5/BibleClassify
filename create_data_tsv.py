@@ -87,17 +87,19 @@ def split_data(certain_author_sentences) -> dict:
     for author, sentences in certain_author_sentences.items():
         n = len(sentences)
         split_point_1 = int(n * 0.8)
-        certain_author_splits[author] = {"train": sentences[:split_point_1], "validate": sentences[split_point_1:]}
+        split_point_2 = int(n * 0.9)
+        certain_author_splits[author] = {"train": sentences[:split_point_1], "validate": sentences[split_point_1:split_point_2], "verify": sentences[split_point_2:]}
     return certain_author_splits
 
 def make_data_csv(certain_author_splits, uncertain_author_sentences):
     train_data = {'label': [], 'text': [], 'textid': []}
     validate_data = {'label': [], 'text': [], 'textid': []}
     verify_data = {'label': [], 'text': [], 'textid': []}
+    evaluate_data = {'target': [], 'text': [], 'textid': []}
+    train_id = 0
+    valid_id = 0
+    verify_id = 0
     for author, splits in certain_author_splits.items():
-        train_id = 0
-        valid_id = 0
-        verify_id = 0
         for sentence in splits["train"]:
             train_data["label"].append(author)
             train_data["text"].append(sentence)
@@ -105,17 +107,26 @@ def make_data_csv(certain_author_splits, uncertain_author_sentences):
             train_id += 1
 
         for sentence in splits["validate"]:
+            print(f"valid id: {valid_id}")
             validate_data["label"].append(author)
             validate_data["text"].append(sentence)
             validate_data["textid"].append(valid_id)
             valid_id += 1
 
-    for author, sentences in uncertain_author_sentences.items():
-        for sentence in sentences:
-            verify_data["label"].append(author)
+        for sentence in splits["verify"]:
+            verify_data["target"].append(author)
             verify_data["text"].append(sentence)
             verify_data["textid"].append(verify_id)
             verify_id += 1
+    
+    evaluate_id = 0
+    for author, sentences in uncertain_author_sentences.items():
+        for sentence in sentences:
+            print(f"evaluate id: {evaluate_id}")
+            evaluate_data["target"].append(author)
+            evaluate_data["text"].append(sentence)
+            evaluate_data["textid"].append(evaluate_id)
+            evaluate_id += 1
 
     df1 = pd.DataFrame(train_data)
     df1.to_csv('train_dataset.tsv', sep='\t', index=False)
@@ -123,6 +134,8 @@ def make_data_csv(certain_author_splits, uncertain_author_sentences):
     df2.to_csv('validate_dataset.tsv', sep='\t', index=False)
     df3 = pd.DataFrame(verify_data)
     df3.to_csv('verify_dataset.tsv', sep='\t', index=False)
+    df4 = pd.DataFrame(evaluate_data)
+    df4.to_csv('evaluate_dataset.tsv', sep='\t', index=False)
 
 
 def main():
