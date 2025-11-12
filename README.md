@@ -10,7 +10,7 @@ We are using bayesian classification model to determine the authors of the books
 the sequence of steps:
 1. compiling the dataset: We have a format of the whole New Testament that can be read through and transformed into a tsv file with two columns: sentences and authors.
 
-3. splitting the dataset: We will need to split the tsv file we had into two main parts: training and testing. for the training, we will also need to split that into three parts: training, validation, and verification. (maybe 80%, 20% for train and validate respectively, then all of the uncertain books for verify)
+3. splitting the dataset: We will need to split the tsv file we had into two main parts: training and testing. for the training, we will also need to split that into three parts: training, validation, and verification. (maybe 80%, 10%, 10%)
 
 5. Trian/Finetune: We will then finetune based on our chosen text classification model using our train & validate datasets.
 
