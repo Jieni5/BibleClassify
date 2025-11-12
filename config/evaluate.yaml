@@ -1,11 +1,14 @@
 exp: TextClassification
-mode: evaluate
+mode: 
+  - evaluate
 
-models: ../trainedModel
+models: 
+  hf_text_classification_model:
+      - ../trainedModel
 
-datafpath: ../data/verify_dataset.tsv
+datafpath: ../BibleClassify/data/evaluate_dataset.tsv
 
-predfpath: ../BibleClassify/data/predictions.tsv
+predfpath: ../BibleClassify/data/predictions_evaluate.tsv
 
 giveAllLabels: true
 
@@ -19,5 +22,4 @@ id2label:
   6: Matthew
   7: Mark
 
-max_length: 128
-batch_size: 64
+
