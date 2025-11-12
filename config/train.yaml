@@ -1,12 +1,14 @@
 exp: TextClassification
-mode: train
+mode: 
+  - train
 
-model: distilgpt2               
-max_length: 128              
+models: 
+  hf_text_classification_model:
+        - distilbert-base-uncased           
 
-trainfpath:   ../data/train_dataset.tsv
-validfpath:   ../data/validate_dataset.tsv
-modelfpath: ../trainedModel
+trainfpath:   ../BibleClassify/data/train_dataset.tsv
+validfpath:   ../BibleClassify/data/validate_dataset.tsv
+modelfpath: ../BibleClassify/trainedModel
 
 id2label:
   0: Paul
@@ -18,21 +20,6 @@ id2label:
   6: Matthew
   7: Mark
 
-epochs: 3
-batch_size: 16
-learning_rate: 5.0e-5
-weight_decay: 0.01
-warmup_ratio: 0.06
-gradient_accumulation_steps: 1
-seed: 42
-
-output_dir: outputs/tc_bible_author_cls
-save_strategy: epoch
-eval_strategy: epoch
-log_every_steps: 50
-
-fp16: true
-shuffle: true
 
 loadPretrained: true
 

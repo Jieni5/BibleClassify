@@ -1,12 +1,11 @@
 exp: TextClassification
-mode: 
-    - evaluate
+mode: evaluate
 
-model: ../trainedModel
+models: ../trainedModel
 
-datafpath: ../data/evaluate_dataset.tsv
+datafpath: ../data/verify_dataset.tsv
 
-predfpath: ../data/predictions.tsv
+predfpath: ../BibleClassify/data/predictions.tsv
 
 giveAllLabels: true
 
