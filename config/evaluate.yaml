@@ -1,11 +1,11 @@
-experiment: TextClassification
+exp: TextClassification
 mode: evaluate
 
-model: outputs/tc_bible_author_cls/best
+model: ../trainedModel
 
-datafpath: data/bible_uncertain/all_uncertain.tsv
+datafpath: ../data/train_dataset.tsv
 
-predfpath: outputs/predictions/uncertain_book_preds.tsv
+predfpath: ../data/predictions.tsv
 
 giveAllLabels: true
 

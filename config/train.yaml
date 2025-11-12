@@ -4,8 +4,8 @@ mode: train
 model: distilgpt2               
 max_length: 128              
 
-trainfpath:   ../data/train.tsv
-validfpath:   ../data//val.tsv
+trainfpath:   ../data/train_dataset.tsv
+validfpath:   ../data/validate_dataset.tsv
 modelfpath: ../trainedModel
 
 id2label:
