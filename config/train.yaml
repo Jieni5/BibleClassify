@@ -1,8 +1,7 @@
-experiment: TextClassification
+exp: TextClassification
 mode: train
 
 model: distilgpt2               
-tokenizer: distilgpt2
 max_length: 128              
 
 trainfpath: data/bible_certain/train.tsv
