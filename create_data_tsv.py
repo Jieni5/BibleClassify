@@ -108,7 +108,7 @@ def split_data(certain_author_sentences) -> dict:
 def make_data_csv(certain_author_splits, uncertain_author_sentences):
     train_data = {'label': [], 'text': [], 'textid': []}
     validate_data = {'label': [], 'text': [], 'textid': []}
-    verify_data = {'label': [], 'text': [], 'textid': []}
+    verify_data = {'target': [], 'text': [], 'textid': []}
     evaluate_data = {'target': [], 'text': [], 'textid': []}
     train_id = 0
     valid_id = 0
@@ -128,7 +128,7 @@ def make_data_csv(certain_author_splits, uncertain_author_sentences):
             valid_id += 1
 
         for sentence in splits["verify"]:
-            verify_data["label"].append(author)
+            verify_data["target"].append(author)
             verify_data["text"].append(sentence)
             verify_data["textid"].append(verify_id)
             verify_id += 1
