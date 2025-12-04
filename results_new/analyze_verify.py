@@ -4,7 +4,7 @@ import pandas as pd
 df = pd.read_csv('../data/predictions_verify.tsv', sep='\t')
 
 
-filtered_df = df[df['prob'] > 0.6]
+filtered_df = df[df['prob'] > 0.25]
 
 filtered_df = filtered_df[['textid', 'target', 'predicted', 'prob']]
 
