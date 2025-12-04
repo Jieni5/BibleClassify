@@ -14,7 +14,7 @@ filtered_df.to_csv('filtered_predictions_verify.tsv', sep='\t', index=False)
 print("\nFiltered data saved to 'filtered_predictions_verify.tsv'")
 
 accuracy_data = []
-for name in ['Matthew', 'Luke', 'John', 'Paul', 'Peter','James', 'Jude']:
+for name in ['Matthew', 'Luke', 'John', 'Paul', 'Peter','James', 'Jude','Mark']:
     # Filter by target name
     target_df = filtered_df[filtered_df['target'] == name]
     
