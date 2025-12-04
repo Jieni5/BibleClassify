@@ -52,7 +52,7 @@ def split_verse_into_sentences(verse_text):
 def make_data_dict(text_list, author_dict, certain_books, uncertain_books) -> dict:
     certain_author_sentences = {author: [] for author in author_dict}
     uncertain_author_sentences = {author: [] for author in author_dict}
-    verse_pattern = re.compile(r'^\s*([1-3]?\s?[A-Za-z]+)\s+\d+:\d+\s*', re.IGNORECASE)
+    verse_pattern = re.compile(r'^\s*([1-3]?\s?[A-Za-z]+)\s+\d+:\d+\s*', re.IGNORECASE) #came from chatgpt
     book = None
 
     for verse in text_list:
@@ -70,14 +70,28 @@ def make_data_dict(text_list, author_dict, certain_books, uncertain_books) -> di
 
         for sentence in sentences:
             sentence = sentence.strip()
-            if not sentence:
+            if not sentence or sentence == "Amen.": #leave out Amen sentences
                 continue
             for author, books in author_dict.items():
                 if book in books:
                     if book in certain_books:
-                        certain_author_sentences[author].append(sentence)
+                        if author == "John": #oversample John
+                            certain_author_sentences[author].extend([sentence] * 3)
+                        elif author == "Luke" or author == "Peter": #oversample Luke and Peter
+                            certain_author_sentences[author].extend([sentence] * 7)
+                        elif author != "Paul": #oversample all certain authors except Paul
+                            certain_author_sentences[author].extend([sentence] * 13)
+                        else:
+                            certain_author_sentences[author].append(sentence)
                     elif book in uncertain_books:
-                        uncertain_author_sentences[author].append(sentence)
+                        if author == "John": #oversample John
+                            uncertain_author_sentences[author].extend([sentence] * 3)
+                        elif author == "Luke" or author == "Peter": #oversample Luke and Peter
+                            uncertain_author_sentences[author].extend([sentence] * 7)
+                        elif author != "Paul": #oversample all certain authors except Paul
+                            uncertain_author_sentences[author].extend([sentence] * 13)
+                        else:
+                            uncertain_author_sentences[author].append(sentence)
                     break
 
     return certain_author_sentences, uncertain_author_sentences
@@ -114,7 +128,7 @@ def make_data_csv(certain_author_splits, uncertain_author_sentences):
             valid_id += 1
 
         for sentence in splits["verify"]:
-            verify_data["target"].append(author)
+            verify_data["label"].append(author)
             verify_data["text"].append(sentence)
             verify_data["textid"].append(verify_id)
             verify_id += 1
