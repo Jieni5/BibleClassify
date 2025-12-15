@@ -11,26 +11,26 @@ The project trains a transformer model on books with known authorship, evaluates
 # Repository Structure
 BibleClassify/
 │
-├── config/                 # NLPScholar YAML configs
-│   ├── train.yaml          # Fine-tuning configuration
-│   ├── verify.yaml         # Evaluation on verification set (known authors)
-│   └── evaluate.yaml       # Evaluation on debated books (unknown authors)
+├── config/ # NLPScholar YAML configs
+│ ├── train.yaml # Fine-tuning configuration
+│ ├── verify.yaml # Evaluation on verification set (known authors)
+│ └── evaluate.yaml # Evaluation on debated books (unknown authors)
 │
-├── data/                   # Generated TSV datasets (train/val/verify/evaluate)
+├── data/ # Generated TSV datasets (train/val/verify/evaluate)
 │
-├── results/                # Old aggregated results
-├── results_new/            # Updated aggregated results (0.60 threshold)
+├── results/ # Old aggregated results
+├── results_new/ # Updated aggregated results (0.60 chapter threshold)
 │
-├── Literature/             # Supporting readings
+├── Literature/ # Supporting readings
 │
-├── create_data_tsv.py      # Converts raw KJV text into TSV datasets
-├── aggregate_results.py    # Aggregates predictions into chapter-level results
-├── dataset_template.py     # Helper functions for TSV formatting
+├── create_data_tsv.py # Converts raw KJV text into TSV datasets
+├── aggregate_results.py # Aggregates predictions into chapter-level results
+├── dataset_template.py # Helper functions for TSV formatting
 │
-├── kjv_new_testament.txt   # Full KJV text used for dataset creation
+├── kjv_new_testament.txt # Full KJV text used for dataset creation
 │
-├── train_dataset.tsv       # Processed training data
-└── evaluate_dataset.tsv    # Processed evaluation data
+├── train_dataset.tsv # Processed training data
+└── evaluate_dataset.tsv # Processed evaluation data
 
 
 Take probability of text over sentences >60% then assign to the author model classified it to other wise assign to unknown author
