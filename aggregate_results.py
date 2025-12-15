@@ -3,20 +3,13 @@ import re
 import numpy as np
 
 def make_chapter_dict(chapter_dict, predictions_eval_file, eval_sentences_file, txt_file, author_dict, predictions_file):
-#predictions_eval_file = "predictions_evaluate.tsv"
-#eval_sentences_file = "evaluate_dataset.tsv"
 
     # # Read evaluation sentences
     eval_sentences_df = pd.read_csv(eval_sentences_file, sep='\t')
-    # eval_sentences = eval_sentences_df['text'].tolist()#list of sentences in evaluate set
+   
 
     # # Read predictions
-    # predictions_eval_df = pd.read_csv(predictions_eval_file, sep='\t')
-    # predictions_other_df = pd.read_csv(predictions_file, sep='\t')
-    # predictions_df = pd.concat([predictions_eval_df, predictions_other_df], ignore_index=True, sort=False)
     predictions_df = pd.read_csv(predictions_eval_file, sep='\t')
-    # predicted_probs = predictions_df.drop(columns=['textid', 'text']).values
-    #print("main test")
     
 
     for i, row in predictions_df.iterrows():
@@ -24,11 +17,9 @@ def make_chapter_dict(chapter_dict, predictions_eval_file, eval_sentences_file, 
         predicted_prob = row['prob']
         predicted_author = row['predicted']
         pattern = r"^([1-3]?\s?[A-Za-z]+(?:\s[A-Za-z]+)*)\s+(\d+):(\d+)\s*\t\s*(.+)$"
-        #print("iterrows test")
         with open(txt_file, "r", encoding="utf-8") as f:
             for line in f:
                 line = line.strip()
-                #print("linetest")
                 match = re.match(pattern, line)
                 if not match:
                     print("NO MATCH:", line)  # Debug
@@ -53,7 +44,7 @@ def make_chapter_dict(chapter_dict, predictions_eval_file, eval_sentences_file, 
                                 if predicted_prob <= 0.25:
                                     chapter_dict[author][chapter_key]['Unknown'].append(predicted_prob)
                                 chapter_dict[author][chapter_key][predicted_author].append(predicted_prob)
-    #print(chapter_dict)
+                                
     return chapter_dict
 
 def aggregate_chapter_results(chapter_dict):
@@ -92,15 +83,6 @@ def aggregate_chapter_results(chapter_dict):
             aggregated_results[author][chapter]["author"] = predicted_author
             aggregated_results[author][chapter]["probability"] = np.mean(predicted_probs)
 
-            # for auth, probs in auth_dict.items():
-            #     if probs:
-                
-            #         aggregated_results[author][chapter][auth] = np.mean(probs)
-
-            #         #if len(aggregated_results[author][chapter]["Unknown"]) >=
-            #     else:
-            #         aggregated_results[author][chapter][auth] = None  # or some default value
-    #print(aggregated_results)
     return aggregated_results
 
 def make_tsv(aggregated_results, output_file):
@@ -116,9 +98,9 @@ def make_tsv(aggregated_results, output_file):
             prob = stats.get("probability")
 
             if prob is None:
-                # If no probability exists but label is Unknown, give fallback
+                # If no probability exists but label is Unknown, give backup
                 if stats["author"] == "Unknown":
-                    prob = 0.0       # or choose another default like np.nan
+                    prob = 0.0
                 else:
                     prob = None
 
