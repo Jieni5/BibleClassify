@@ -9,28 +9,21 @@ This repository contains the full code, configuration files, and dataset prepara
 The project trains a transformer model on books with known authorship, evaluates it on both known and debated books, and aggregates sentence-level predictions into chapter-level authorship probabilities.
 
 ## Repository Structure
-BibleClassify/
-│
-├── config/ # NLPScholar YAML configs
-│ ├── train.yaml # Fine-tuning configuration
-│ ├── verify.yaml # Evaluation on verification set (known authors)
-│ └── evaluate.yaml # Evaluation on debated books (unknown authors)
-│
-├── data/ # Generated TSV datasets (train/val/verify/evaluate)
-│
-├── results/ # Old aggregated results
-├── results_new/ # Updated aggregated results (0.60 chapter threshold)
-│
-├── Literature/ # Supporting readings
-│
-├── create_data_tsv.py # Converts raw KJV text into TSV datasets
-├── aggregate_results.py # Aggregates predictions into chapter-level results
-├── dataset_template.py # Helper functions for TSV formatting
-│
-├── kjv_new_testament.txt # Full KJV text used for dataset creation
-│
-├── train_dataset.tsv # Processed training data
-└── evaluate_dataset.tsv # Processed evaluation data
+BibleClassify:
+- config/ # NLPScholar YAML configs
+  - train.yaml # Fine-tuning configuration
+  - verify.yaml # Evaluation on verification set (known authors)
+  - evaluate.yaml # Evaluation on debated books (unknown authors)
+- data/ # Generated TSV datasets (train/val/verify/evaluate)
+- results/ # Old aggregated results
+- results_new/ # Updated aggregated results (0.60 chapter threshold)
+- Literature/ # Supporting readings
+- create_data_tsv.py # Converts raw KJV text into TSV datasets
+- aggregate_results.py # Aggregates predictions into chapter-level results
+- dataset_template.py # Helper functions for TSV formatting
+- kjv_new_testament.txt # Full KJV text used for dataset creation
+- train_dataset.tsv # Processed training data
+- evaluate_dataset.tsv # Processed evaluation data
 
 
 
