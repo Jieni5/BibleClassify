@@ -8,7 +8,7 @@ This repository contains the full code, configuration files, and dataset prepara
 
 The project trains a transformer model on books with known authorship, evaluates it on both known and debated books, and aggregates sentence-level predictions into chapter-level authorship probabilities.
 
-# Repository Structure
+## Repository Structure
 BibleClassify/
 │
 ├── config/ # NLPScholar YAML configs
@@ -31,6 +31,7 @@ BibleClassify/
 │
 ├── train_dataset.tsv # Processed training data
 └── evaluate_dataset.tsv # Processed evaluation data
+
 
 
 Take probability of text over sentences >60% then assign to the author model classified it to other wise assign to unknown author
